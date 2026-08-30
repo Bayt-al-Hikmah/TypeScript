@@ -1,20 +1,12 @@
 ## Objectives:
-
-- Learn About How Computers Work
 - Introduction to Programming Languages
 - Introduction to TypeScript and Node.js
 - TypeScript Basics
 - User Input and Output
-## How Computers Work
-We all have computers, and we use them for a variety of purposes, including watching videos, playing games, performing mathematical calculations, communicating with friends, and many other applications. But the fundamental question is: how do these devices actually work?  
-The answer lies in their electrical nature. Computers are essentially electrical devices that perform all calculations using electrical signals. The central processing unit (CPU), often referred to as the "brain" of the computer, executes these calculations. To temporarily store data while the computer is in operation, it relies on memory, specifically Random Access Memory (RAM).  
-Crucially, all information within a computer is represented by electrical signals. This includes data stored in memory and the instructions that the CPU executes. These electrical signals exist in one of two distinct states: presence (typically represented by the digit '1') or absence (represented by '0') .
-With this binary representation in mind, we can understand that CPU instructions are essentially sequences of 1s and 0s. This sequence of binary digits is known as machine code, which is the most fundamental level of programming language that the CPU can directly understand.
 
 ## Introduction to Programming Languages
 Programming languages are tools that were developed to facilitate communication with computers. Instead of writing instructions directly in binary code, which can become incredibly cumbersome for large programs, we can use programming languages with their more user-friendly syntax. This simplifies the coding process, making it easier to read, understand, and debug code.  
 However, computers cannot directly understand the syntax of these high-level programming languages. To bridge this gap, we use a program called a **compiler** or an **interpreter**. These tools translate the code into machine code, a low-level language consisting of binary instructions that the computer can execute.
-
 ## Introduction to TypeScript
 ### What is TypeScript & Why Use It?
 TypeScript is an open-source language developed by Microsoft. It is a strict syntactical superset of JavaScript, which means any valid JavaScript code is also valid TypeScript code.  
@@ -58,17 +50,16 @@ We  install them with this command :
 ```shell
 npm install ts-node @types/node --save-dev
 ```
-    
-
 ### TypeScript Compiler & Configuration
 In TypeScript projects, the compiler we use is the command-line tool **`tsc`** short for _TypeScript Compiler_.  
 This tool takes our `.ts` files and converts them into plain JavaScript that Node.js can execute.  
-Before starting with typ
 Before writing TypeScript code, we need to configure our project.  we do that by running the following command in the root folder of our project:
 ```shell
 tsc --init
 ```
 This creates a **`tsconfig.json`** file. This file tells the `tsc` compiler how to translate our `.ts` files into `.js` files. 
+
+Inside this file we can find the following
 #### `module: "nodenext"`
 This tells TypeScript to use Node’s **modern ES Module system** with `.js`/`.ts` + `package.json` `"type"` rules.  
 It makes TypeScript behave like the latest Node environment, supporting native `import`/`export`.
@@ -123,7 +114,7 @@ console.log(message);
 ```
 We compile now our typescript file using 
 ```shell
-tsc index.ts
+tsc 
 ```
 This file will generate javascript file for us `index.js` that we can run it using 
 ```shell
@@ -135,10 +126,10 @@ Hello, TypeScript world!
 ```
 ## TypeScript Basics
 ### Variables
-Variables are fundamental building blocks in TypeScript programs, acting just like they do in JavaScript. They are labeled containers that store data, such as numbers, text (strings), and true/false values (booleans). We typically declare them using `let` (for variables that can be reassigned) or `const` (for variables that cannot).  
-TypeScript is a superset of JavaScript that adds optional static typing. While JavaScript itself is dynamically typed (a variable's type can change at runtime), TypeScript allows us to explicitly define a type for a variable. When we do, the TypeScript compiler checks our code to ensure that variable only holds that specific type of data. This "type-checking" catches many common bugs before our code even runs.
+Variables are fundamental building blocks in TypeScript programs. They are labeled containers that store data, such as numbers, text (strings), and true/false values (booleans). We typically declare them using `let` (for variables that can be reassigned) or `const` (for variables that cannot).  
+TypeScript allows us to explicitly define a type for a variable. When we do, the TypeScript compiler checks our code to ensure that variable only holds that specific type of data. This "type-checking" catches many common bugs before our code even runs.
 ### DataTypes
-Before working with variables, it’s important to understand the different types of information TypeScript allows us to store. Since it's built on JavaScript, TypeScript uses all of JavaScript's primitive types (like `string`, `number`, `boolean`, `null`, `undefined`, and `symbol`) as well as `object`.  
+Before working with variables, it’s important to understand the different types of information TypeScript allows us to store. Since it's built on JavaScript, TypeScript uses all of JavaScript's primitive types (like `string`, `number`, `boolean`, `null`, `undefined`, and `symbol`) as well as `object`.    
 However, TypeScript adds its own powerful types to help describe your data more accurately, such as:
 - **Tuples** (arrays with a fixed number of elements of specific types)
 - **Enums** (a way of giving more friendly names to sets of numeric values)
@@ -146,25 +137,50 @@ However, TypeScript adds its own powerful types to help describe your data more 
 - **Unknown** (a safer alternative to `any`)
 - **Void** (for functions that do not return a value)
 
-
-Each data type serves a specific purpose and determines how the data is stored and manipulated. We can divide data types into two categories basic (or primitive) types and object types.
+Each data type serves a specific purpose and determines how the data is stored and manipulated. We can divide data types into two categories: primitive types and object types.
 ### Basic Types
 The basic types are the simplest, most fundamental data values. Let's look at the most common ones.
 #### String
 The `string` type is used for textual data. If you need to store text, like a name, a sentence, or any other sequence of characters, you use the `string` type. You can declare them using single quotes (`'`) or double quotes (`"`).
+```ts
+let message:string = "Hello World";               // string with double quotation mark
+let name:string = 'Alice';                        // string with single quotation mark
+let greeting:string = `Hello, ${name}!`;          // string with ` allow us to inject variables
+```
 #### Number
-TypeScript, like JavaScript, has only one `number` type. This single type represents _all_ numeric values, including both integers (whole numbers) and floating-point numbers (decimals).
+TypeScript has only one `number` type. This single type represents all numeric values, including both integers (whole numbers) and floating-point numbers (decimals).
+```ts
+let age:number = 23;                              // number: int
+let pi:number = 3.14;                             // number: float
+```
 #### Boolean
 The `boolean` type is one of the simplest, representing only two possible values: `true` or `false`. It is essential for logic, conditions, and flagging things as "on" or "off."
+```ts
+let is_adult;boolean = false;                      // boolean
+```
 #### Null
 The `null` type has only one value: `null`. This is used to represent the intentional absence of a value. It means "this variable _should_ have an object value, but it doesn't have one right now."
+```ts
+let number:undefined;                             // undefined
+```
 #### Undefined
 The `undefined` type also has only one value: `undefined`. This typically represents a variable that has been declared but has not yet been assigned a value.
+```ts
+let user:null = null;                             // null mean no value
+```
 #### Any
 The `any` type is a special "escape hatch" in TypeScript. When you type a variable as `any`, you are telling TypeScript to turn off all type-checking for that variable. This means we can assign anything to it and use it in any way, even if it doesn't make sense.   
 This should be avoided whenever possible, as it completely defeats the purpose of using TypeScript.
+```ts
+let variable:any = 10                             // any type
+variable = "text"                                 // can assign text to it   
+```
 #### Unknown
-The `unknown` type is the **safer alternative to `any`**. Like `any`, it can hold any value. However, TypeScript will not let us use a variable of type `unknown` until we first perform some kindS of type check (like using an `if` statement or `typeof`) to determine what its type actually is.
+The `unknown` type is the **safer alternative to `any`**. Like `any`, it can hold any value. However, TypeScript will not let us use a variable of type `unknown` until we first perform some kind of type check (like using an `if` statement or `typeof`) to determine what its type actually is.
+```ts
+let variable2:unknown = "text"                    // any type
+variable2 = 45                                    // can assign number to it    
+```
 ### Object Types
 Besides the basic types, the other main category is **object types**. While a basic type holds a single, simple value (like a number or a string), an object type can hold a more complex collection of values and properties.
 #### Object 
@@ -187,8 +203,10 @@ let myUser: User = {
   id: 123,
   isActive: true
 };
-```
 
+console.log(myUser.name);      // using dot notation
+console.log(myUser["id"]);   // using bracket notation
+```
 #### Array
 An `array` is an ordered list of values. TypeScript allows us to specify what type of values the array can hold. We can define an array in two common ways:
 1. By adding `[]` after the type.
@@ -200,9 +218,10 @@ let scores: number[] = [100, 85, 92];
 
 // An array that can ONLY hold strings
 let names: Array<string> = ["Alice", "Bob", "Charlie"];
+// access value 
+console.log(scores[0])  // we use index starting from 0
 ```
 #### Tuple
-
 A Tuple is a TypeScript-specific type. It's like an array, but with two key differences:
 1. It has a fixed number of elements.
 2. The types of those elements are known at specific positions.
@@ -210,9 +229,10 @@ A Tuple is a TypeScript-specific type. It's like an array, but with two key diff
 This is useful when we have a small, fixed set of related data, like an ID and a name.
 ```ts
 // A tuple that must have a string first, then a number
-let userPair: [string, number];
+let userPair: [string, number]; // defining the tuple
+userPair = ["b.wayne", 1];      // creating the tuple
 
-userPair = ["b.wayne", 1]; // This is correct
+console.log(userPair[1]);       // access element      
 
 ```
 #### Enum
@@ -231,7 +251,7 @@ let move: Direction = Direction.North;
 ```
 
 ### Creating Variables
-TypeScript provides us with a few ways to create variables, building directly on JavaScript. The modern standard uses `let` and `const`. Choosing the right one depends on whether you need to reassign the variable (mutaibility) and what its scope should be.
+TypeScript provides us with a few ways to create variables. The modern standard uses `let` and `const`. Choosing the right one depends on whether you need to reassign the variable (mutaibility) and what its scope should be.
 #### Using `let` 
 The `let` keyword is the most common way to declare a variable that can be reassigned later. It is block-scoped, meaning it only exists within the curly braces (`{}`) it was declared in.  
 We can explicitly state the type, or let TypeScript infer it.
@@ -251,7 +271,7 @@ The `const` keyword is used to declare variables whose reference cannot be chang
 const message = "Hello, TypeScript!";
 // message = "Goodbye!"; // Error! Cannot reassign a 'const'.
 ```
- `const` makes the variable binding immutable, not the value itself. If a `const` variable holds an object or an array, we can still change the _contents_ of that object or array.
+`const` makes the variable binding immutable, not the value itself. If a `const` variable holds an object or an array, we can still change the _contents_ of that object or array.
 ```ts
 const user = {
   name: "Bob",
@@ -262,7 +282,7 @@ user.age = 43; // This is allowed!
 // user = { name: "Jane", age: 25 }; // Error! This is reassignment.
 ```
 #### Type Inference
-In both of the examples above, we omitted the type. TypeScript is excellent at type inference** it automatically figures out the variable's type from the value we provide.
+In both of the examples above, we omitted the type. TypeScript is excellent at type inference it automatically figures out the variable's type from the value we provide.
 ```ts
 // TypeScript infers 'count' is a 'number'
 let count = 10;
@@ -329,26 +349,26 @@ type Point = {
 // Use the 'Point' type alias to check our object's shape
 ```
 ### Type Conversion & Assertions
-ometimes, we don't have full control over a value we receive from an **external resource**, like an API response or user input from the DOM. TypeScript's compiler can't always know the exact type of this data (it might be `any` or `unknown`).  
+Sometimes, we don't have full control over a value we receive from an **external resource**, like an API response or user input from the DOM. TypeScript's compiler can't always know the exact type of this data (it might be `any` or `unknown`).  
 When this happens, we need to make the value fit a "target type" to match our script. TypeScript helps us handle this in two main ways: **explicit conversion** (actually changing the value) and **type assertion** (telling the compiler what we know).
 #### Explicit Conversion 
 This is not a TypeScript-specific feature but a standard JavaScript one. It involves creating a new value of a different type using built-in functions. This is the safest way to convert types because it actually changes the value at runtime.
 ```ts
-let myString = "123";
+let myString:string = "123";
 
 let myNum: number = Number(myString);
 
 console.log(myNum + 2); // Outputs 125
 
 // Other common examples
-let myBool = Boolean("hello"); // true
-let numAsString = String(500); // "500"
+let myBool:boolean = Boolean("hello"); // true
+let numAsString:string = String(500); // "500"
 ```
-With the `Number()` function, we can **convert** a string like `"123"` into a true `number` value (123).  
+With the `Number()` function, we can **convert** a string like `"123"` into a `number` value (123).  
 Similarly, the `String()` and `Boolean()` functions let us explicitly **convert** any value into a `string` or a `boolean` ( `true` / `false` ), respectively.
 #### Type Assertions
 A **type assertion** is a way to tell the TypeScript compiler, "Trust me, I know what I'm doing. This value is of this specific type."  
-It's important to understand: this does not perform any runtime conversion or checking. It is only a hint for the compiler to ignore a type mismatch. If we are wrong about the type, our program will likely fail at runtime.  
+This does not perform any runtime conversion or checking. It is only a hint for the compiler to ignore a type mismatch. If we are wrong about the type, our program will likely fail at runtime.  
 There are two syntaxes for this.
 #### The `as` Keyword
 This is the most common and preferred way to do a type assertion. It's especially useful in TSX (React) files, as the other syntax can conflict with JSX.
@@ -383,11 +403,11 @@ const canvas = <HTMLCanvasElement>document.getElementById("main_canvas");
 ```
 ### Comments:
 Comments are lines of code that the compiler will ignore. They are used to add explanatory notes and improve the readability of our code. There are two ways to create comments:  
-**Single-line comments:** Begin with `//` and continue until the end of the current line. All text following `//` on the same line is ignored by the compiler.
+**Single-line comments:** Begin with `//` and continue until the end of the current line. All text following `//` on the same line is ignored by the compiler.
 ```ts
 // this single line comment
 ```
-**Multi-line comments:** Begin with `/*` and end with `*/`. Any text between these two symbols, including multiple lines, will be ignored by the compiler.
+**Multi-line comments:** Begin with `/*` and end with `*/`. Any text between these two symbols, including multiple lines, will be ignored by the compiler.
 ```ts
 /*
 	This
@@ -406,9 +426,9 @@ A more powerful and modern way to format output is using Template Literals (or "
 - They use backticks (`` ` ``) instead of single or double quotes.
 - You embed variables by wrapping them in `${...}`.
 ```ts
-const name = "Alice";
-const age = 30;
-const price = 19.99;
+const name:string = "Alice";
+const age:number = 30;
+const price:number = 19.99;
 
 // Using simple console.log()
 console.log("Hello and welcome!");
@@ -443,14 +463,13 @@ console.log("Column 1\tColumn 2");
 // Using \" to include quotes
 console.log(`He said: "Hello, TypeScript!"`);
 ```
-### Getting Input from the User (
+### Getting Input from the User
 When running TypeScript in Node.js, there is no simple, built-in function that just pauses the program and waits for input.  
 Instead, we must use a built-in module like **`readline`** to read from the standard input (`process.stdin`). This is an **asynchronous, event-based** process.
 Here is a standard way to ask a single question and get the user's full line of input.
 ```ts
 // We must import the 'readline' module
-import * as readline from 'readline';
-
+const readline = require('readline');  // we reguire read line
 
 const rl = readline.createInterface({
   input: process.stdin,  // Read from the keyboard
@@ -468,13 +487,20 @@ rl.question("Please enter your name: ", (name) => {
 Here we used the built-in Node.js `readline` module to ask the user a question in the terminal. It first creates an **interface** (`rl`) configured to read from the keyboard (`process.stdin`) and write back to the terminal (`process.stdout`).   
 The `rl.question()` method prints the prompt "Please enter your name: " and then **asynchronously** waits for the user to type a response and press Enter. Once they do, the callback function (the arrow function `(name) => {...}`) is executed, using the user's input (now stored in the `name` variable) to print a greeting.   
 Finally, `rl.close()` is called inside the callback to stop the program from waiting for more input, allowing it to exit.
+
+If there is problem while compiling the file fix the `tscongig.json` file:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["node"]
+  }
+}
+```
+In `compilerOptions` set types to `["node"]`
 ## Tasks
 
 ### Task 1: Circle Surface Area
 Write a program that reads the radius of a circle from the user and then displays its surface area (Area = $\pi \times r^2$).  
-
-Save this as `Task1.ts` 
 ### Task 2: Temperature Converter
 Develop a temperature converter that converts from Celsius to Fahrenheit (F = $C \times \frac{9}{5} + 32$).  
-
-Save this as `Task2.ts`.

@@ -2,11 +2,10 @@
 - Working with Functions
 - Working with Modules, Packages & Namespaces
 ## Functions
-
 ### Introduction
 A function is a reusable block of code designed to perform a specific task. Functions are fundamental to writing efficient and well-structured programs. By following the DRY (Don't Repeat Yourself) principle, functions help eliminate code duplication and promote cleaner code. They also make it easier to break down complex problems into smaller, manageable parts, resulting in code that is more organized, easier to understand, and simpler to maintain.
 ### Creating Functions
-In TypeScript, we define a function using the `function` keyword, followed by the function name, parameters, and (optionally but recommended) a return type.   
+In TypeScript, we define a function using the `function` keyword, followed by the function name, parameters, and a return type.   
 If a function does not return any value, we use the special return type `void`.  
 Lets declare simple function named `sayHello` to print `Hello, user!"` we start with the`function` keyword, followed by the function name `sayHello`, and empty parentheses `()` we don't need arguments for this function. Then we put the code that the function executes inside curly braces `{ }`.
 ```ts
@@ -16,11 +15,6 @@ function sayHello(): void {
 ```
 To execute the code inside a function, we need to call it. We do this by writing the function's name followed by parentheses. In our example, the parentheses are empty because the function does not take any arguments.
 ```ts
-// We define the function
-function sayHello(): void {
-	console.log("Hello, user!");
-}
-
 // We call the function to execute its code
 sayHello(); // Output: Hello, user!
 ```
@@ -38,7 +32,8 @@ sayHello("Ali"); // Output: Hello, Ali
 In this example we edited the `sayHello` function, no it have one parametre of type ``string``, and use it to display defferent message depending on the argument we provided, we call the `sayHello` function and pass the value `"Ali"` as an argument. The function receives this value in its parameter `name`, which has the type `string`. It then uses this value to display a personalized greeting.
 ### Default & Optional Parameters
 TypeScript provides more flexibility for parameters.  
-**Optional Parameters** We can mark a parameter as optional by adding a `?` after its name. Optional parameters must come after required parameters.
+#### Optional Parameters 
+We can mark a parameter as optional by adding a `?` after its name. Optional parameters must come after required parameters.
 ```ts
 function greet(firstName: string, lastName?: string): void {
 	if (lastName) {
@@ -51,8 +46,10 @@ function greet(firstName: string, lastName?: string): void {
 greet("Ahmed"); // Output: Hello, Ahmed
 greet("Ahmed", "Ali"); // Output: Hello, Ahmed Ali
 ```
-Here the lastName is optional prameter, we can pass argument to it or ommit using it.   
-**Default Parameters** We  can also provide a default value for a parameter by using the `=` operator. This makes the parameter optional, and if no value is provided, the default value is used.
+Here the `lastName` is optional parameter, we can pass argument to it or ommit using it.  
+
+#### Default Parameters 
+We  can also provide a default value for a parameter by using the `=` operator. This makes the parameter optional, and if no value is provided, the default value is used.
 ```ts
 function greet(name: string, greeting: string = "Hello"): void {
 	console.log(`${greeting}, ${name}`);
@@ -203,10 +200,10 @@ A recursive function is a special function that has the ability to call itself u
 Let's suppose we want to create a function that calculates the factorial of a number. We know that:  
 - 0! is equal to 1
 - 1! is equal to 1 \* 0!=1\*1
-- 2! is equal to 2 * 1 =2 \* 1!
-- 3! is equal to 3 * 2 * 1 = 3 \* 2!
-- 4! is equal to 4 * 3 * 2 * 1 =  4 \* 3!
-- 5! is equal to 5 * 4 * 3 * 2 * 1 = 5 * 4!
+- 2! is equal to 2 \* 1 =2 \* 1!
+- 3! is equal to 3 \* 2 \* 1 = 3 \* 2!
+- 4! is equal to 4 \* 3 \* 2 \* 1 =  4 \* 3!
+- 5! is equal to 5 \* 4 \* 3 \* 2 \* 1 = 5 \* 4!
 
 With that in mind, we can set the base case: if n === 0, we return 1. Otherwise, we return n multiplied by the factorial of n-1.
 ```ts
@@ -230,7 +227,7 @@ Here if the value is 0 return 1. else we return ``n \* factorial(n-1)``, for 5 w
 - 0 is equal to 0 so we returning ``1``.
 
 Now we substitute the results back up the chain:
-```
+```ts
 factorial(0) = 1
 factorial(1) = 1 * factorial(0) = 1 * 1 = 1
 factorial(2) = 2 * factorial(1) = 2 * 1 = 2
@@ -291,7 +288,7 @@ In this example, `runCallback` accepts two arguments:
 1. **callback** a function that takes a `string` and returns `void`
 2. **value** a string value that will be passed to the callback function
 
-So calling `runCallback(greet, "TypeScript")` will dall the `greet` function and pass `"TypeScript"` to it.
+So calling `runCallback(greet, "TypeScript")` will call the `greet` function and pass `"TypeScript"` to it.
 ### Returning Functions
 Functions can also return a function. This is useful for creating **“function factories”**: functions that generate other functions, often with customized behavior.  
 To return a function, we simply set the return type to a **function type signature**.
@@ -320,7 +317,6 @@ if (operation) {
 This allows us to **choose which function to execute at runtime** based on a string or some condition, making our code flexible and reusable.
 
 ### Functional Programming Concepts
-
 While TypeScript is not a purely functional language (it's a multi-paradigm, object-oriented language), it embraces and strongly supports key functional concepts:
 
 - **Pure functions:** You can (and should) write functions that always produce the same output for the same arguments and have no side effects. This makes code easier to test and reason about.
@@ -344,12 +340,12 @@ TypeScript, running on a JavaScript engine, comes with a powerful set of built-i
 ```ts
 // No imports are needed for built-in globals
 console.log("Hello, TypeScript!");
-const myFavoriteNumber = Math.floor(Math.random() * 10);
+const myFavoriteNumber:number = Math.floor(Math.random() * 10);
 console.log("My favorite number is", myFavoriteNumber);
 ```
 When running in a browser, this also includes Web APIs like `fetch` or `document`. When running in Node.js, this includes globals like `process`.
 ### Introduction to Packages (npm)
-While modules organize code within files, packages organize modules into a single, shareable unit. A TypeScript/JavaScript package is a collection of related modules (a project) that are versioned together. Packages are how we manage dependencies the other libraries our project needs to run.  
+While modules organize code within files, packages organize modules into a single, shareable unit. A TypeScript/JavaScript package is a collection of related modules that are versioned together. Packages are how we manage dependencies.   
 A package is defined by a `package.json` file, which lives in the root directory of our project. This file tracks our project's name and all its dependencies and their specific versions (in `dependencies` and `devDependencies`).
 ### Creating Our Own Project
 To start any new project, our first step should be to create a package. We do this from our terminal using the `npm init` command (or `yarn init`). This command creates the `package.json` file for us.
@@ -377,7 +373,7 @@ This command will create a `package.json` file that looks something like this:
 	"license": "ISC"
 }
 ```
-Our project is now officially a package.
+Our project is now officially a package, we need to add `"type": "module"` to the `package.json` so we can ue import
 ### Organizing Project Files 
 Now that we have a project, we can easily create and use our own modules (files). Let's create a `calculator` module inside our `myawesomeproject`.  
 We start by creating a new directory `calculator`. Inside that directory, we create a new file `add.ts`.  
@@ -406,7 +402,7 @@ function subtract(a: number, b: number): number {
 Now, we can use our new module from `index.ts`. We import it using a **relative path** (starting with `./`).
 ```ts
 // File: index.ts
-import { Add } from "./calculator/add"; // Import our local module
+import { Add } from "./calculator/add.js"; // Import our local module
 
 const sum = Add(10, 5);
 console.log("The sum is:", sum); // Output: The sum is: 15
@@ -415,7 +411,7 @@ console.log("The sum is:", sum); // Output: The sum is: 15
 // was not exported from './calculator/add.ts':
 // const diff = subtract(10, 5);
 ```
-When we compile and run our code, TypeScript (or the JavaScript runtime) sees the import, looks for the `add.ts` file relative to `index.ts`, and uses the exported `Add` function.
+When we compile and run our code, TypeScript sees the import, looks for the `add.js` file relative to `index.ts`, and uses the exported `Add` function.
 ### Common Import/Export Patterns
 TypeScript uses the ES6 module syntax, which is very flexible.
 #### Named Exports: 
@@ -490,11 +486,7 @@ Now, TypeScript knows all the functions, types, and signatures for the `uuid` li
 With this set we can use the package in our code, we can now import and use the package just like one of our own modules.
 ```ts
 // File: index.ts
-import { Add } from "./calculator/add";
 import { v4 as uuidv4 } from "uuid"; // Third-party package import
-
-const sum = Add(10, 5);
-console.log("The sum is:", sum);
 
 const newID = uuidv4();
 console.log("Generated UUID:", newID);

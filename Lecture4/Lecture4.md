@@ -4,7 +4,7 @@
 ## Object Oriented Programming in TypeScript
 ### Introduction
 Object-Oriented Programming (OOP) is a programming paradigm that revolves around the concept of "objects." These objects can contain data in the form of fields (often called properties) and code in the form of procedures (often called methods).  
-TypeScript is a typed superset of JavaScript* that is strongly designed for Object-Oriented Programming. It provides classical OOP features like classes, interfaces, and access modifiers, making programs more modular, reusable, and easier to maintain.
+TypeScript is a typed superset of JavaScript that is strongly designed for Object-Oriented Programming. It provides classical OOP features like classes, interfaces, and access modifiers, making programs more modular, reusable, and easier to maintain.
 #### Core Principles of OOP:
 - **Encapsulation:** Combines data and the functions that operate on that data within a single unit or class. This keeps data safe from outside interference and misuse, a concept strongly enforced by TypeScript's access modifiers.
 - **Abstraction:** Allows programmers to hide all but the relevant data about an object to reduce complexity and increase efficiency. Interfaces and abstract classes in TypeScript are key tools for abstraction.
@@ -64,7 +64,7 @@ interface Dog extends Animal {
 
 const myDog: Dog = { name: "Buddy", breed: "Golden Retriever" };
 ```
-Here, `Dog` automatically includes `name` from `Animal`, plus its own `breed` property. This helps keep our code **organized, reusable, and easy to expand** without duplication.
+Here, `Dog` automatically includes `name` from `Animal`, plus its own `breed` property. 
 #### Intersection Types
 While interfaces let us extend other interfaces, type aliases have their own way of combining types through intersection types. Using the `&` operator, we can merge multiple types into one, meaning the final type must include **all** properties from each part.  
 This is especially useful when different data pieces come from different parts of our program, and we want to build a single, complete type from them.
@@ -81,7 +81,7 @@ type Employee = Identity & Contact;
 
 const emp: Employee = { id: 101, email: "emp@example.com" };
 ```
-Here, `Employee` must have **both** `id` and `email`, since it's a combination of `Identity` and `Contact`. Intersection types give us flexible, powerful ways to construct complex types without repeating ourself.
+Here, `Employee` must have **both** `id` and `email`, since it's a combination of `Identity` and `Contact`.
 ### Classes & OOP in TypeScript
 Classes are the main building block for OOP in TypeScript. A class serves as a blueprint for creating objects, letting us define properties, methods, and a constructor to initialize new instances.
 #### Classes, Constructors, and Methods
@@ -109,13 +109,14 @@ class Animal {
 const dog = new Animal("Buddy");
 dog.speak(); // Buddy makes a sound
 ```
-#### Access Modifiers: Public, Private, Protected
+#### Access Modifiers
 In plain JavaScript, all class properties are accessible from outside the class. this can be problematic, because sensitive data or internal logic can be modified directly breaking the object’s integrity.  
 TypeScript solves this by providing access modifiers that control visibility of class members and help enforce encapsulation (protecting internal data):
 - **`public`** (default): Accessible from anywhere.
 - **`private`**: Accessible only inside the class.
 - **`protected`**: Accessible inside the class and its subclasses.
-    ```ts
+
+```ts
     class BankAccount {
       private balance: number = 0;
     
@@ -132,28 +133,46 @@ TypeScript solves this by providing access modifiers that control visibility of 
     account.deposit(100);
     console.log(account.getBalance()); // 100
     // console.log(account.balance); // Error: Property 'balance' is private...
-    ```
+```
 #### Inheritance
-Earlier, we learned that interfaces can use `extends` to inherit properties and build more complex types.  
-Classes work in a very similar way but instead of just inheriting structure, they inherit both:
+Earlier, we learned that interfaces can use `extends` to inherit properties and build more complex types. Classes work in a very similar way but instead of just inheriting structure, they inherit both:
 - Properties (data/attributes)
 - Methods (behavior/functions)
 
 This means we can create a base class that contains shared functionality, and then create child classes that extend it, gaining access to those features without rewriting them.    
-We use the **`extends`** keyword, just like with interfaces, and if the parent has a constructor, we call it using **`super()`**.
+To make a class inherite from another one we use the **`extends`** keyword.
 ```ts
-class Dog extends Animal {
-  // We don't need to redeclare 'name' or 'constructor' if it's the same
+class Animal {
+    name: string;
+    constructor(name:string) {
+        this.name = name;
+    }
+    speak() {
+        console.log(`${this.name} makes a sound`);
+    }
+}
 
-  // Override the parent's speak method
-  speak(): void {
-	console.log(`${this.name} barks`);
-  }
+class Dog extends Animal {
+    // override speak keep parrent behaviour
+    speak():void {
+        super.speak(); // call parent "Animal" speak
+        console.log(`${this.name} barks`);
+    }
+}
+class Cat extends Animal {
+    // override speak
+    speak():void {
+        console.log(`${this.name} meow`);
+    }
 }
 
 const myDog = new Dog("Rex");
-myDog.speak(); // Rex barks
+myDog.speak(); 
+
+const myCat = new Cat("Alen");
+myCat.speak(); 
 ```
+The `Dog` and `Cat` class inherits from the `Animal` class, When we inherite from class we can override the method inherited from the parent class, We can totally override them as we did in `Cat` class, or keep that parent behaviour and add additional functionality like we did in `Dog` class, The `super.speak()` call allow us to access the parent class's `speak()`. 
 #### Abstract Classes
 Sometimes we need to create a base class that serves only as a **template** for other classes meaning it should **not** be created on its own, this is useful when we know all subclasses should share a common structure or behavior, but each subclass will implement the details differently.
 That's where **abstract classes** come in, they can contain `abstract` methods, which have no implementation and must be implemented by any subclass.
@@ -217,9 +236,9 @@ Drawing a circle
 Drawing a square
 ```
 #### Static Members 
-Sometimes, we have methods or properties that are logically related to a class but don't belong to any specific instance. For example, a utility function (like adding two numbers) or a universal constant (like the value of $PI$) doesn't depend on data from a particular object.  
+Sometimes, we have methods or properties that are logically related to a class but don't belong to any specific instance. For example, a utility function (like adding two numbers) or a universal constant (like the value of PI) doesn't depend on data from a particular object.  
 It would be wasteful to create an entire object just to access them. This is where **static members** come in.  
-Static methods and properties belong to the **class itself**, not to any **instance**. This means you access them directly on the class name, making them perfect for:
+Static methods and properties belong to the **class itself**, not to any **instance**. This means you access them directly on the class name.
 ```ts
 class MathHelper {
   static readonly PI: number = 3.14159;
@@ -233,32 +252,28 @@ console.log(MathHelper.PI);       // 3.14159
 console.log(MathHelper.add(5, 3)); // 8
 ```
 #### Getters and Setters
-When we making a property `public` is too simple. What if we need to run code when a property is **read** or **written**?
-- **When writing (setting):** We might want to **validate** the new value. For example, we can't just let someone set a `password` to "123" or an `age` to -50.
-- **When reading (getting):** We might want to **compute** or **format** the data before returning it. For example, we might store a `firstName` and `lastName`, but you want to provide a `fullName` property that combines them automatically.
-
 Getters and setters (also called accessors) let us control access to a property. They are special methods that look and act like regular properties, but they run our code "under the hood."
 - A **`get`** method runs when we **read** the property's value.
 - A **`set`** method runs when we **assign** a new value to the property.
 
-This is most often used with a private backing field (a variable like `_firstName`) that stores the actual data, while the public getter/setter (`name`) acts as the gatekeeper.
+This is most often used with a private backing field (a variable like `_name`) that stores the actual data, while the public getter/setter (`name`) acts as the gatekeeper.
 ```ts
 class User {
   // A private backing field
-  private _firstName: string = '';
+  private _name: string = '';
 
   // The 'setter' validates the input
   set name(value: string) {
 	if (value.length < 3) {
 	  console.log('Name is too short.');
 	} else {
-	  this._firstName = value;
+	  this._name = value;
 	}
   }
 
   // The 'getter' can format the output
   get name(): string {
-	return this._firstName.toUpperCase();
+	return this._name.toUpperCase();
   }
 }
 
@@ -276,7 +291,6 @@ As your application grows, we will often find yourself needing to add similar pi
 
 Without a special tool, we will have to repeat this boilerplate code inside every single method. This clutters our real logic, makes it hard to read, and violates the **DRY (Don't Repeat Yourself)** principle.  
 This is the exact problem **Decorators** solve. A decorator is a special kind of function, prefixed with an **`@`** symbol, that we can attach to a class, method, property, or parameter. It allows us to "wrap" the target to add this new behavior or metadata cleanly. It lets us separate these concerns from our business logic in a declarative way.  
-
 Here is a simple example of a **method decorator** that logs when a method is called.
 ```ts
 // This is the decorator function
@@ -310,10 +324,10 @@ The `logMethod` decorator receives two arguments: the `originalMethod` it is dec
 
 This decorator **returns a new function** (`replacementMethod`) that will replace the original method. This `replacementMethod` acts as a wrapper: before calling the original method, it logs the method name and its arguments. It then invokes the `originalMethod` using `.apply(this, args)` (to preserve the correct `this` context), captures the returned value, logs that result, and finally returns it.
 
-When we apply `@logMethod` above the `add` method, TypeScript replaces `add` with this new `replacementMethod`. As a result, whenever `add` is called, the decorator's wrapper function intercepts the call, logs the useful information, and then forwards the call to the original `add` logic. This shows how decorators let us transparently add extra behavior—like logging—without modifying the method itself.
+When we apply `@logMethod` above the `add` method, TypeScript replaces `add` with this new `replacementMethod`. As a result, whenever `add` is called, the decorator's wrapper function intercepts the call, logs the useful information, and then forwards the call to the original `add` logic. This shows how decorators let us transparently add extra behavior like logging without modifying the method itself.  
 
+If the program fail after compilation to javascript, change the `tsconfig.json` and set `"target"` to `"ES2022"`
 ## Error Handling in TypeScript
-
 ### Introduction
 When writing code, errors are inevitable. In JavaScript, these errors often surface at runtime, causing a program to fail. They can be **syntax errors** (typos), **runtime errors** (invalid input), or **logical errors** (flawed logic).  
 TypeScript's primary advantage is its **static type system**, which shifts a significant portion of error detection from runtime to compile-time. By checking types before the code is even run, TypeScript can prevent entire classes of errors, such as `TypeError` and `ReferenceError`, that are common in plain JavaScript.  
@@ -365,9 +379,9 @@ A key TypeScript feature is **source maps** (`.map` files). These files tell the
 The `try...catch` statement is the standard way to handle code that might throw a runtime error.
 - **`try` Block:** Contains the "risky" code that might throw an error (e.g., `JSON.parse`, an API call).
 - **`catch` Block:** Executes if and only if the `try` block throws an error.
-- **`finally` Block (Optional):** Executes _after_ `try` (and `catch`, if it ran), regardless of whether an error occurred. This is perfect for cleanup, like closing a file or a database connection.
+- **`finally` Block (Optional):** Executes _after_ `try` (and `catch`, if it ran), regardless of whether an error occurred or no. This is perfect for cleanup, like closing a file or a database connection.
 
-In TypeScript, the error variable in the `catch` block is typed as `unknown` by default (with the `useUnknownInCatchVariables` flag in `tsconfig.json`, which is `true` by default in `strict` mode). This is safer than `any` because it forces you to check the error's type before using it.
+In TypeScript, the error variable in the `catch` block is typed as `unknown` by default (with the `useUnknownInCatchVariables` flag in `tsconfig.json`, which is `true` by default in `strict` mode). This is safer than `any` because it forces you to check the error's type before using it.  
 **Example:**
 ```ts
 function parseRiskyJSON(data: string) {
@@ -402,7 +416,7 @@ parseRiskyJSON('{invalid json}');
 ```
 ### Raising Custom Errors
 In real applications, things don’t always go as planned users enter invalid data, resources may not exist, and operations can fail. If we don't handle these cases, our program could behave unpredictably or produce wrong results.    
-To deal with such situations, TypeScript (and JavaScript) allows us to **throw custom errors**. This stops the function immediately and forces us to handle the failure gracefully.
+To deal with such situations, TypeScript allows us to **throw custom errors**. This stops the function immediately and forces us to handle the failure gracefully.
 #### Basic Throw
 We can use the `throw` keyword to stop execution and signal that something went wrong. Typically, we throw an `Error` object so we get a useful message and stack trace. TypeScript also analyzes your code and knows that the function may throw an error.
 ```ts
@@ -423,8 +437,8 @@ try {
   }
 }
 ```
-#### Advanced: Custom Error Classes
-Sometimes, a generic `Error` isn’t enough. In larger applications, different failures may need different handling for example, validation errors vs network errors. If all errors look the same, it becomes difficult to know what went wrong and how to respond.  
+#### Custom Error Classes
+Generic `Error` isn’t enough. In larger applications, different failures may need different handling for example, validation errors vs network errors. If all errors look the same, it becomes difficult to know what went wrong and how to respond.  
 To solve this, TypeScript lets us create our own **custom error types** by extending the built-in `Error` class. This gives us more control and allows us to catch specific error types.
 ```ts
 // Define a custom error type
@@ -432,7 +446,7 @@ class ValidationError extends Error {
   constructor(message: string) {
     super(message); // Pass the message to the base 'Error' class
     this.name = "ValidationError"; // Set the error name
-    Object.setPrototypeOf(this, InsufficientFundsError.prototype)
+    Object.setPrototypeOf(this, ValidationError.prototype)
   }
 }
 
@@ -457,7 +471,7 @@ try {
   }
 }
 ```
-Here we added the ``Object.setPrototypeOf(this, InsufficientFundsError.prototype)`` to fixe the prototype chain so that the ``InsufficientFundsError`` object truly inherits from the Error class. Without this line, JavaScript may treat the thrown error as a generic Error, making error instanceof ``InsufficientFundsError`` fail in Node.js or older JS targets. In simple terms: it tells JavaScript “this error belongs to the ``InsufficientFundsError`` class”, allowing custom error detection to work correctly.
+Here we added the ``Object.setPrototypeOf(this, ValidationError.prototype)`` to fixe the prototype chain so that the ``ValidationError`` object truly inherits from the Error class. Without this line, JavaScript may treat the thrown error as a generic Error, making error instanceof ``ValidationError`` fail in Node.js or older JS targets.
 ## Tasks
 ### Task 1: 
 Create a Bank System With Error Handling

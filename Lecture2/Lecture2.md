@@ -6,12 +6,12 @@
 ## Comparison and Logical Operators
 ### Comparison
 Comparison operators let us check relationships between values like whether one number is greater than another or if two things are equal. They don't change the values; they simply **compare** them and return a boolean (`true` or `false`).
-- `>` (Greater than)
-- `<` (Less than)
-- `==` (Equal to)
-- `!=` (Not equal to)
-- `>=` (Greater than or equal to)
-- `<=` (Less than or equal to)
+- `>` (Greater than)
+- `<` (Less than)
+- `==` (Equal to)
+- `!=` (Not equal to)
+- `>=` (Greater than or equal to)
+- `<=` (Less than or equal to)
 
 ```ts
 console.log(5 > 4)    // => true
@@ -21,20 +21,20 @@ console.log("hi" != "hello") // => true
 ### Logical Operators
 Logical operators let us combine multiple boolean expressions to build more complex conditions. They help decide what should happen only when several checks are true, or when at least one condition passes.
 
-#### `||` (OR)
-Returns `true` if **at least one** condition is true.
+#### `||` (OR)
+Returns `true` if **at least one** condition is true.
 
 ```ts
 console.log(true || false)  // => true
 console.log(false || false) // => false
 ```
-#### `&&` (AND)
-Returns `true` only if **all** conditions are true.
+#### `&&` (AND)
+Returns `true` only if **all** conditions are true.
 ```ts
 console.log(true && true)   // => true
 console.log(true && false)  // => false
 ```
-#### `!` (NOT)
+#### `!` (NOT)
 Reverses the logical state.
 ```ts
 console.log(!true)  // => false
@@ -48,6 +48,7 @@ console.log(!false) // => true
 |true|false|false|true|false|
 |false|true|false|true|true|
 |false|false|false|false|true|
+
 ## Conditional Statements
 So far, our programs have been running from top to bottom in a straight line. But real-world logic often requires choices. Maybe we only want some code to run if a condition is true, or we want different outcomes depending on user input, values, or system state.  
 To handle these situations, **TypeScript provides conditional statements** like `if`, `else if`, and `else`. These allow our program to make decisions instead of always following the same flow.
@@ -89,7 +90,7 @@ if (score >= 90) {
 ### Ternary Operator (Shorthand If-Else)
 Sometimes we need a quick decision in a single line for example, choosing a value based on a condition. TypeScript gives us a compact way to do this using the ternary operator.  
 It works like this:
-```ts
+```
 condition ? valueIfTrue : valueIfFalse;
 ```
 Example:
@@ -99,8 +100,7 @@ let age: number = 18;
 let message = age >= 18 ? "You are an adult." : "You are a minor.";
 console.log(message);
 ```
-If the condition is true, the first value is chosen; otherwise, the second one is used.   
-This is useful for simple decisions like assigning values or displaying quick messages. If the logic becomes complex, it’s usually better to use a regular `if-else` block for readability.
+If the condition is true, the first value is chosen; otherwise, the second one is used.
 ### `switch` Statement
 When checking the same value against many possible matches, we can use a `switch` statement. This makes code cleaner than writing many `else if` statements.
 ```ts
@@ -122,23 +122,6 @@ switch (day) {
 }
 ```
 We `switch` on a value, then write `case` blocks. If a case matches, its code runs. The `default` case handles everything else.
-### Condition-Based `switch`
-JavaScript and TypeScript don’t have expressionless switch exactly, we can't use comparison operator directly in our case but we can simulate it using `true` as the switch expression:
-```ts
-let score: number = 85;
-
-switch (true) {
-  case score >= 90:
-    console.log("Excellent performance");
-    break;
-  case score >= 80:
-    console.log("Good job");
-    break;
-  default:
-    console.log("Room for improvement");
-}
-```
-This lets each case use a boolean condition the first `true` case runs.
 ## Loops in TypeScript
 Loops are a fundamental concept in programming that allow us to repeat a block of code multiple times. This helps us avoid repetition and makes our programs more efficient, whether we're processing all items in an array or running a calculation until a certain condition is met.
 ### The `while` Loop
@@ -248,7 +231,7 @@ for (let i = 0; i < 5; i++) {
 **`continue` Example:**
 Here we jumping and skipping when i get the value of 2
 ```ts
-for (let i = 0; i < 5; i++) {
+for (let i:number = 0; i < 5; i++) {
   if (i === 2) {
     continue; // Skip printing when i is 2
   }
